@@ -16,5 +16,8 @@
 
 ## 🎥 시연 영상
 용량 이슈로 저축 계좌인 학생 계좌 입출금만 시연하였습니다.
-https://github.com/user-attachments/assets/4c97eced-779a-4ef9-8a3f-a0ed544e7e65
+
+https://github.com/user-attachments/assets/7394a378-a978-45ad-a912-6019454e6523
+
+
 
