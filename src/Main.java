@@ -8,6 +8,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         HashMap<String, Account> accounts = new HashMap<>();  // 계좌 목록을 저장할 Map
 
+        // 이자 지급 스레드 실행
+        InterestManager interestManager = new InterestManager(accounts);
+        Thread interestThread = new Thread(interestManager);
+        interestThread.setDaemon(true); // 프로그램 종료 시 자동 종료
+        interestThread.start();
+
         while (true) {
             // 메뉴
             System.out.println("\n*** 메뉴 ***");
@@ -83,10 +89,10 @@ public class Main {
                     account = new CheckingAccount(accountNumber, owner, initialBalance);
                 } else if (accountType == AccountType.SAVING) {
                     account = new SavingAccount(accountNumber, owner, initialBalance);
-                    System.out.println("저축 계좌 이자율은 2%입니다.");
+                    System.out.println("저축 계좌 이자율은 2%입니다.이자는 10초마다 지급됩니다.");
                 } else {
                     account = new StudentAccount(accountNumber, owner, initialBalance);
-                    System.out.println("학생 계좌는 저축 계좌이며, 저축 계좌 이자율은 2%입니다.");
+                    System.out.println("학생 계좌는 저축 계좌이며, 저축 계좌 이자율은 2%입니다. 이자는 10초마다 지급됩니다.");
                 }
 
                 accounts.put(accountNumber, account);
@@ -129,7 +135,6 @@ public class Main {
                             continue;
                         }
                         double depositAmount = scanner.nextDouble();
-                        account.deposit(depositAmount);
 
                         if (depositAmount <= 0) {
                             System.out.println("입금 금액은 0보다 커야 합니다.");

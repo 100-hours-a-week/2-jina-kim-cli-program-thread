@@ -4,22 +4,33 @@ public class SavingAccount extends Account {
     public double interestRate=0.02;
     private int maxWithdrawals = 3;
     private int withdrawalCount = 0;
+    private double lastBalance; // 마지막으로 확인된 잔액
 
     public SavingAccount(String accountNumber, String owner, double balance) {
         super(accountNumber, owner, balance);
+        this.lastBalance=balance;
     }
 
     public void applyInterest(){
         double interest=balance*interestRate;
         balance+=interest;
-        System.out.println("이자가 적용되었습니다. 현재 잔액:"+balance);
+    }
+
+    @Override
+    public void checkBalance() {
+        System.out.println("현재 고객님의 잔액은 " + balance + "원 입니다.");
+        if (balance > lastBalance) {
+            System.out.println("(이자가 지급되었습니다.)");
+            lastBalance = balance;
+        }
     }
 
     @Override
     public void deposit(double money) {
         super.deposit(money);
-        applyInterest();
+        System.out.println("이자는 10초마다 지급됩니다.");
     }
+
 
     @Override
     public void withdraw(double money) {
